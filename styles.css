@@ -1,0 +1,156 @@
+:root {
+  --ink: #12100c;
+  --paper: #ece6d8;
+  --brass: #d4a24a;
+  --soot: #3a342c;
+  --mute: #6b6256;
+  --card: #f6f1e6;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 18px/1.55 "IBM Plex Sans", system-ui, sans-serif;
+}
+
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 8px 12px;
+}
+.skip:focus { top: 10px; }
+
+.bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+}
+.wordmark {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: inherit;
+  font-size: 18px;
+}
+nav { display: flex; gap: 20px; }
+nav a { color: var(--soot); text-decoration: none; font-size: 14px; }
+nav a:hover { color: var(--ink); }
+
+.hero {
+  padding: 64px 24px 48px;
+  max-width: 820px;
+}
+.eyebrow {
+  margin: 0 0 12px;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.hero h1 {
+  margin: 0 0 16px;
+  font-family: Fraunces, Georgia, serif;
+  font-size: clamp(48px, 12vw, 104px);
+  line-height: 0.9;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.lede { margin: 0 0 28px; max-width: 42ch; color: var(--soot); }
+
+.id-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin: 0;
+  border: 1px solid var(--ink);
+  background: var(--card);
+}
+.id-card div { padding: 16px 18px; }
+.id-card div + div { border-left: 1px solid var(--ink); }
+dt {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+dd {
+  margin: 6px 0 0;
+  font-family: Fraunces, Georgia, serif;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.block { padding: 56px 24px; max-width: 960px; }
+.block h2, .place h2 {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 500;
+  font-size: 32px;
+  margin: 0 0 18px;
+}
+
+.bench {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.bench li {
+  background: var(--card);
+  padding: 20px 18px 22px;
+  border-top: 3px solid var(--brass);
+}
+.bench h3 { margin: 0 0 8px; font-size: 18px; }
+.bench p { margin: 0; color: var(--soot); font-size: 15px; }
+
+.place {
+  margin: 0 24px 24px;
+  padding: 40px 28px;
+  background: var(--ink);
+  color: var(--paper);
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr;
+  gap: 28px;
+  align-items: end;
+}
+.place p { color: #cfc6b4; max-width: 46ch; }
+address {
+  font-style: normal;
+  font-family: Fraunces, Georgia, serif;
+  font-size: 22px;
+  line-height: 1.35;
+  color: var(--brass);
+}
+
+.mail {
+  display: inline-block;
+  margin: 8px 0 14px;
+  font-family: Fraunces, Georgia, serif;
+  font-size: 26px;
+  color: var(--ink);
+}
+.fine { color: var(--mute); font-size: 14px; max-width: 50ch; }
+
+footer {
+  padding: 20px 24px 36px;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  font-size: 13px;
+  color: var(--soot);
+}
+footer p { margin: 4px 0; }
+
+@media (max-width: 720px) {
+  .id-card, .bench, .place { grid-template-columns: 1fr; }
+  .id-card div + div { border-left: 0; border-top: 1px solid var(--ink); }
+  nav { gap: 14px; }
+}
