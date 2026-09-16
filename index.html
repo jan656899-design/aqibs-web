@@ -61,39 +61,23 @@
 </head>
 <body>
   <div id="gate" class="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
-    <div class="gate-card">
+    <form id="login-form" class="gate-card" novalidate>
       <p class="gate-mark">A</p>
       <h2 id="gate-title">AQIB'S WEB</h2>
-      <p class="gate-copy" id="gate-copy">Enter a valid 10-digit number, then the 4-digit code.</p>
-
-      <form id="phone-form" class="gate-step" novalidate>
-        <label class="gate-field" for="gate-phone">
-          <span>Mobile number</span>
-          <span class="phone-row">
-            <span class="cc">+91</span>
-            <input id="gate-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel"
-              maxlength="10" minlength="10" pattern="[6-9][0-9]{9}" placeholder="98xxxxxxxx" required>
-          </span>
-        </label>
-        <p id="phone-error" class="gate-error" role="alert" hidden></p>
-        <button type="submit" class="gate-btn" id="send-btn">Send OTP</button>
-      </form>
-
-      <form id="otp-form" class="gate-step" hidden novalidate>
-        <p class="gate-sub" id="otp-hint">Enter the 4-digit code</p>
-        <label class="gate-field" for="gate-otp">
-          <span>OTP</span>
-          <input id="gate-otp" name="otp" type="text" inputmode="numeric" autocomplete="one-time-code"
-            maxlength="4" minlength="4" pattern="[0-9]{4}" placeholder="••••" required>
-        </label>
-        <p id="otp-error" class="gate-error" role="alert" hidden></p>
-        <button type="submit" class="gate-btn" id="verify-btn">Verify OTP</button>
-        <button type="button" class="gate-link" id="resend-btn" disabled>Resend OTP in 60s</button>
-        <button type="button" class="gate-link" id="change-phone">Change number</button>
-      </form>
-
-      <div id="recaptcha-container"></div>
-    </div>
+      <p class="gate-copy">Enter your email, then your password, to open the site.</p>
+      <label class="gate-field" for="gate-email">
+        <span>Email id</span>
+        <input id="gate-email" name="email" type="email" inputmode="email" autocomplete="username"
+          placeholder="you@email.com" required>
+      </label>
+      <label class="gate-field" for="gate-pass">
+        <span>Password</span>
+        <input id="gate-pass" name="password" type="password" autocomplete="current-password"
+          minlength="4" placeholder="Your password" required>
+      </label>
+      <p id="gate-error" class="gate-error" role="alert" hidden></p>
+      <button type="submit" class="gate-btn" id="login-btn">Open website</button>
+    </form>
   </div>
 
   <a class="skip" href="#desk">Skip to tools</a>
