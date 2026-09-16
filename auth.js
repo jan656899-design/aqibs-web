@@ -1,8 +1,9 @@
 const GATE_KEY = "aqibsweb_unlocked";
 const PHONE_RE = /^[6-9]\d{9}$/;
+/** Test code until a real SMS key is added. Not sent by any carrier. */
+const ACCESS_OTP = "4444";
 
 let pendingPhone = "";
-let pendingOtp = "";
 let timer = null;
 let left = 0;
 
@@ -42,10 +43,6 @@ function setBusy(btn, busy, label) {
   if (label) btn.textContent = label;
 }
 
-function newOtp() {
-  return String(Math.floor(100000 + Math.random() * 900000));
-}
-
 function startResendClock() {
   left = 60;
   const btn = $("resend-btn");
@@ -67,42 +64,18 @@ function startResendClock() {
 function showOtpStep(phone10) {
   $("phone-form").hidden = true;
   $("otp-form").hidden = false;
-  $("otp-hint").textContent = `Code sent to +91 ${phone10}`;
+  $("otp-hint").textContent = `Enter 4444 for +91 ${phone10}`;
   $("gate-otp").value = "";
   $("gate-otp").focus();
   startResendClock();
 }
 
 function showPhoneStep() {
-  pendingOtp = "";
+  pendingPhone = "";
   $("otp-form").hidden = true;
   $("phone-form").hidden = false;
   showError("otp-error", "");
   $("gate-phone").focus();
-}
-
-async function sendSms(phone10, code) {
-  const body = new URLSearchParams({
-    phone: `+91${phone10}`,
-    message: `AQIB'S WEB OTP: ${code}. Do not share this code.`,
-    key: "textbelt",
-  });
-  try {
-    await fetch("https://textbelt.com/text", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body,
-    });
-  } catch (_) {
-    /* OTP step still opens so the lock never shows a config error */
-  }
-}
-
-async function issueOtp(phone10) {
-  pendingPhone = phone10;
-  pendingOtp = newOtp();
-  await sendSms(phone10, pendingOtp);
-  showOtpStep(phone10);
 }
 
 export function setupAuth() {
@@ -116,13 +89,12 @@ export function setupAuth() {
   const phone = $("gate-phone");
   const otp = $("gate-otp");
   const sendBtn = $("send-btn");
-  const verifyBtn = $("verify-btn");
   if (!phone || !otp) return;
 
   digitsOnly(phone, 10);
-  digitsOnly(otp, 6);
+  digitsOnly(otp, 4);
 
-  $("phone-form").addEventListener("submit", async (e) => {
+  $("phone-form").addEventListener("submit", (e) => {
     e.preventDefault();
     const value = phone.value.trim();
     if (!PHONE_RE.test(value)) {
@@ -131,19 +103,19 @@ export function setupAuth() {
       phone.focus();
       return;
     }
-    setBusy(sendBtn, true, "Sending…");
+    pendingPhone = value;
     showError("phone-error", "");
-    try {
-      await issueOtp(value);
-    } finally {
+    setBusy(sendBtn, true, "Sending…");
+    window.setTimeout(() => {
       setBusy(sendBtn, false, "Send OTP");
-    }
+      showOtpStep(value);
+    }, 400);
   });
 
   $("otp-form").addEventListener("submit", (e) => {
     e.preventDefault();
     const code = otp.value.trim();
-    if (!/^\d{6}$/.test(code) || code !== pendingOtp || pendingPhone !== phone.value.trim()) {
+    if (code !== ACCESS_OTP || pendingPhone !== phone.value.trim()) {
       otp.classList.add("is-bad");
       showError("otp-error", "Invalid OTP, please try again");
       return;
@@ -151,18 +123,11 @@ export function setupAuth() {
     unlockSite();
   });
 
-  $("resend-btn").addEventListener("click", async () => {
+  $("resend-btn").addEventListener("click", () => {
     const value = phone.value.trim();
     if (!PHONE_RE.test(value) || $("resend-btn").disabled) return;
-    setBusy($("resend-btn"), true, "Sending…");
-    try {
-      await issueOtp(value);
-    } finally {
-      if (left > 0) {
-        $("resend-btn").disabled = true;
-        $("resend-btn").textContent = `Resend OTP in ${left}s`;
-      }
-    }
+    pendingPhone = value;
+    showOtpStep(value);
   });
 
   $("change-phone").addEventListener("click", showPhoneStep);

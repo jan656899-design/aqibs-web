@@ -64,7 +64,7 @@
     <div class="gate-card">
       <p class="gate-mark">A</p>
       <h2 id="gate-title">AQIB'S WEB</h2>
-      <p class="gate-copy" id="gate-copy">Enter a valid 10-digit number. We send a 6-digit OTP to +91.</p>
+      <p class="gate-copy" id="gate-copy">Enter a valid 10-digit number, then the 4-digit code.</p>
 
       <form id="phone-form" class="gate-step" novalidate>
         <label class="gate-field" for="gate-phone">
@@ -80,11 +80,11 @@
       </form>
 
       <form id="otp-form" class="gate-step" hidden novalidate>
-        <p class="gate-sub" id="otp-hint">Enter the 6-digit SMS code</p>
+        <p class="gate-sub" id="otp-hint">Enter the 4-digit code</p>
         <label class="gate-field" for="gate-otp">
           <span>OTP</span>
           <input id="gate-otp" name="otp" type="text" inputmode="numeric" autocomplete="one-time-code"
-            maxlength="6" minlength="6" pattern="[0-9]{6}" placeholder="••••••" required>
+            maxlength="4" minlength="4" pattern="[0-9]{4}" placeholder="••••" required>
         </label>
         <p id="otp-error" class="gate-error" role="alert" hidden></p>
         <button type="submit" class="gate-btn" id="verify-btn">Verify OTP</button>
