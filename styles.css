@@ -249,3 +249,52 @@ html:not(.unlocked) .gate { display: grid; }
   cursor: pointer;
 }
 .gate-btn:hover { filter: brightness(1.08); }
+.gate-btn:disabled,
+.gate-link:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: none;
+}
+
+.phone-row {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--line);
+  background: var(--void);
+}
+.phone-row:focus-within { border-color: var(--brass); }
+.phone-row .cc {
+  display: grid;
+  place-items: center;
+  padding: 0 12px;
+  color: var(--brass);
+  font-weight: 600;
+  border-right: 1px solid var(--line);
+}
+.phone-row input {
+  border: 0 !important;
+  background: transparent !important;
+}
+
+.gate-sub { margin: 0 0 12px; color: var(--mute); font-size: 13px; }
+.gate-link {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  border: 0;
+  background: none;
+  color: var(--brass);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: center;
+}
+
+#recaptcha-container { margin-top: 12px; min-height: 0; }
+
+html.unlocking .gate {
+  animation: gateOut 0.45s ease forwards;
+}
+@keyframes gateOut {
+  to { opacity: 0; visibility: hidden; }
+}

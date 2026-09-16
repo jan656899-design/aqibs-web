@@ -1,49 +1,6 @@
-const GATE_KEY = "aqibsweb_unlocked";
+import { setupAuth } from "./auth.js";
 
-function unlockSite() {
-  document.documentElement.classList.add("unlocked");
-  const gate = document.getElementById("gate");
-  if (gate) gate.hidden = true;
-}
-
-function setupGate() {
-  const form = document.getElementById("gate-form");
-  const phone = document.getElementById("gate-phone");
-  const error = document.getElementById("gate-error");
-  if (!form || !phone) return;
-
-  if (sessionStorage.getItem(GATE_KEY) === "1") {
-    unlockSite();
-    return;
-  }
-
-  phone.addEventListener("input", () => {
-    phone.value = phone.value.replace(/\D/g, "").slice(0, 10);
-    error.hidden = true;
-    phone.classList.remove("is-bad");
-  });
-
-  phone.addEventListener("paste", (e) => {
-    e.preventDefault();
-    const text = (e.clipboardData || window.clipboardData).getData("text");
-    phone.value = String(text).replace(/\D/g, "").slice(0, 10);
-  });
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const value = phone.value.trim();
-    if (!/^[0-9]{10}$/.test(value)) {
-      error.hidden = false;
-      phone.classList.add("is-bad");
-      phone.focus();
-      return;
-    }
-    sessionStorage.setItem(GATE_KEY, "1");
-    unlockSite();
-  });
-
-  phone.focus();
-}
+setupAuth();
 
 const q = document.getElementById("q");
 const count = document.getElementById("count");
@@ -66,6 +23,5 @@ function filter() {
     : `${shown} tools on the desk`;
 }
 
-setupGate();
 if (q) q.addEventListener("input", filter);
 filter();
