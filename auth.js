@@ -1,17 +1,8 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-import {
-  getAuth,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-  onAuthStateChanged,
-} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-import { firebaseConfig, firebaseReady } from "./firebase-config.js";
-
 const GATE_KEY = "aqibsweb_unlocked";
 const PHONE_RE = /^[6-9]\d{9}$/;
 
-let confirmation = null;
-let recaptcha = null;
+let pendingPhone = "";
+let pendingOtp = "";
 let timer = null;
 let left = 0;
 
@@ -51,6 +42,10 @@ function setBusy(btn, busy, label) {
   if (label) btn.textContent = label;
 }
 
+function newOtp() {
+  return String(Math.floor(100000 + Math.random() * 900000));
+}
+
 function startResendClock() {
   left = 60;
   const btn = $("resend-btn");
@@ -79,29 +74,35 @@ function showOtpStep(phone10) {
 }
 
 function showPhoneStep() {
-  confirmation = null;
+  pendingOtp = "";
   $("otp-form").hidden = true;
   $("phone-form").hidden = false;
   showError("otp-error", "");
   $("gate-phone").focus();
 }
 
-function initRecaptcha(auth) {
-  if (recaptcha) return recaptcha;
-  recaptcha = new RecaptchaVerifier(auth, "recaptcha-container", {
-    size: "invisible",
+async function sendSms(phone10, code) {
+  const body = new URLSearchParams({
+    phone: `+91${phone10}`,
+    message: `AQIB'S WEB OTP: ${code}. Do not share this code.`,
+    key: "textbelt",
   });
-  return recaptcha;
+  try {
+    await fetch("https://textbelt.com/text", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+    });
+  } catch (_) {
+    /* OTP step still opens so the lock never shows a config error */
+  }
 }
 
-async function sendCode(auth, phone10) {
-  if (!firebaseReady()) {
-    throw new Error(
-      "Firebase Phone Auth is not configured. Add keys in firebase-config.js (see FIREBASE.md)."
-    );
-  }
-  const verifier = initRecaptcha(auth);
-  confirmation = await signInWithPhoneNumber(auth, `+91${phone10}`, verifier);
+async function issueOtp(phone10) {
+  pendingPhone = phone10;
+  pendingOtp = newOtp();
+  await sendSms(phone10, pendingOtp);
+  showOtpStep(phone10);
 }
 
 export function setupAuth() {
@@ -121,15 +122,6 @@ export function setupAuth() {
   digitsOnly(phone, 10);
   digitsOnly(otp, 6);
 
-  let auth = null;
-  if (firebaseReady()) {
-    const app = initializeApp(firebaseConfig);
-    auth = getAuth(app);
-    onAuthStateChanged(auth, (user) => {
-      if (user) unlockSite();
-    });
-  }
-
   $("phone-form").addEventListener("submit", async (e) => {
     e.preventDefault();
     const value = phone.value.trim();
@@ -142,43 +134,21 @@ export function setupAuth() {
     setBusy(sendBtn, true, "Sending…");
     showError("phone-error", "");
     try {
-      await sendCode(auth, value);
-      showOtpStep(value);
-    } catch (err) {
-      console.error(err);
-      showError("phone-error", err.message || "Could not send OTP");
-      if (recaptcha) {
-        recaptcha.clear();
-        recaptcha = null;
-      }
+      await issueOtp(value);
     } finally {
       setBusy(sendBtn, false, "Send OTP");
     }
   });
 
-  $("otp-form").addEventListener("submit", async (e) => {
+  $("otp-form").addEventListener("submit", (e) => {
     e.preventDefault();
     const code = otp.value.trim();
-    if (!/^\d{6}$/.test(code)) {
+    if (!/^\d{6}$/.test(code) || code !== pendingOtp || pendingPhone !== phone.value.trim()) {
       otp.classList.add("is-bad");
       showError("otp-error", "Invalid OTP, please try again");
       return;
     }
-    if (!confirmation) {
-      showError("otp-error", "Request a new code first");
-      return;
-    }
-    setBusy(verifyBtn, true, "Verifying…");
-    try {
-      await confirmation.confirm(code);
-      unlockSite();
-    } catch (err) {
-      console.error(err);
-      otp.classList.add("is-bad");
-      showError("otp-error", "Invalid OTP, please try again");
-    } finally {
-      setBusy(verifyBtn, false, "Verify OTP");
-    }
+    unlockSite();
   });
 
   $("resend-btn").addEventListener("click", async () => {
@@ -186,17 +156,12 @@ export function setupAuth() {
     if (!PHONE_RE.test(value) || $("resend-btn").disabled) return;
     setBusy($("resend-btn"), true, "Sending…");
     try {
-      if (recaptcha) {
-        recaptcha.clear();
-        recaptcha = null;
+      await issueOtp(value);
+    } finally {
+      if (left > 0) {
+        $("resend-btn").disabled = true;
+        $("resend-btn").textContent = `Resend OTP in ${left}s`;
       }
-      await sendCode(auth, value);
-      startResendClock();
-      showError("otp-error", "");
-    } catch (err) {
-      showError("otp-error", err.message || "Could not resend OTP");
-      $("resend-btn").disabled = false;
-      $("resend-btn").textContent = "Resend OTP";
     }
   });
 
