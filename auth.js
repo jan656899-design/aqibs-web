@@ -1,20 +1,8 @@
 const GATE_KEY = "aqibsweb_unlocked";
-const USERS_KEY = "aqibsweb_users";
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_RE = /^[6-9]\d{9}$/;
+const NAME_RE = /^[A-Za-z][A-Za-z .']{2,}$/;
 
 const $ = (id) => document.getElementById(id);
-
-function users() {
-  try {
-    return JSON.parse(localStorage.getItem(USERS_KEY) || "{}");
-  } catch {
-    return {};
-  }
-}
-
-function saveUsers(map) {
-  localStorage.setItem(USERS_KEY, JSON.stringify(map));
-}
 
 function unlockSite() {
   const root = document.documentElement;
@@ -37,57 +25,53 @@ export function setupAuth() {
   }
 
   const form = $("login-form");
-  const emailEl = $("gate-email");
-  const passEl = $("gate-pass");
+  const nameEl = $("gate-name");
+  const phoneEl = $("gate-phone");
   const error = $("gate-error");
-  if (!form || !emailEl || !passEl) return;
+  if (!form || !nameEl || !phoneEl) return;
 
   const clearErr = () => {
     error.hidden = true;
     error.textContent = "";
-    emailEl.classList.remove("is-bad");
-    passEl.classList.remove("is-bad");
+    nameEl.classList.remove("is-bad");
+    phoneEl.classList.remove("is-bad");
   };
 
-  emailEl.addEventListener("input", clearErr);
-  passEl.addEventListener("input", clearErr);
+  nameEl.addEventListener("input", clearErr);
+  phoneEl.addEventListener("input", () => {
+    phoneEl.value = phoneEl.value.replace(/\D/g, "").slice(0, 10);
+    clearErr();
+  });
+  phoneEl.addEventListener("paste", (e) => {
+    e.preventDefault();
+    phoneEl.value = String((e.clipboardData || window.clipboardData).getData("text"))
+      .replace(/\D/g, "")
+      .slice(0, 10);
+  });
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const email = emailEl.value.trim().toLowerCase();
-    const password = passEl.value;
+    const name = nameEl.value.trim();
+    const phone = phoneEl.value.trim();
 
-    if (!EMAIL_RE.test(email)) {
-      emailEl.classList.add("is-bad");
+    if (!NAME_RE.test(name) || name.split(/\s+/).length < 2) {
+      nameEl.classList.add("is-bad");
       error.hidden = false;
-      error.textContent = "Please enter a valid email id";
-      emailEl.focus();
+      error.textContent = "Please enter your full name";
+      nameEl.focus();
       return;
     }
-    if (!password || password.length < 4) {
-      passEl.classList.add("is-bad");
+    if (!PHONE_RE.test(phone)) {
+      phoneEl.classList.add("is-bad");
       error.hidden = false;
-      error.textContent = "Please enter a valid password (min 4 characters)";
-      passEl.focus();
+      error.textContent = "Please enter a valid 10-digit number";
+      phoneEl.focus();
       return;
     }
 
-    const book = users();
-    if (!book[email]) {
-      book[email] = password;
-      saveUsers(book);
-      unlockSite();
-      return;
-    }
-    if (book[email] !== password) {
-      passEl.classList.add("is-bad");
-      error.hidden = false;
-      error.textContent = "Wrong password for this email";
-      passEl.focus();
-      return;
-    }
+    sessionStorage.setItem("aqibsweb_visitor", JSON.stringify({ name, phone }));
     unlockSite();
   });
 
-  emailEl.focus();
+  nameEl.focus();
 }

@@ -64,16 +64,19 @@
     <form id="login-form" class="gate-card" novalidate>
       <p class="gate-mark">A</p>
       <h2 id="gate-title">AQIB'S WEB</h2>
-      <p class="gate-copy">Enter your email, then your password, to open the site.</p>
-      <label class="gate-field" for="gate-email">
-        <span>Email id</span>
-        <input id="gate-email" name="email" type="email" inputmode="email" autocomplete="username"
-          placeholder="you@email.com" required>
+      <p class="gate-copy">Enter your full name, then a valid 10-digit number, to open the site.</p>
+      <label class="gate-field" for="gate-name">
+        <span>Full name</span>
+        <input id="gate-name" name="name" type="text" autocomplete="name"
+          placeholder="Your full name" required>
       </label>
-      <label class="gate-field" for="gate-pass">
-        <span>Password</span>
-        <input id="gate-pass" name="password" type="password" autocomplete="current-password"
-          minlength="4" placeholder="Your password" required>
+      <label class="gate-field" for="gate-phone">
+        <span>Mobile number</span>
+        <span class="phone-row">
+          <span class="cc">+91</span>
+          <input id="gate-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel"
+            maxlength="10" minlength="10" pattern="[6-9][0-9]{9}" placeholder="98xxxxxxxx" required>
+        </span>
       </label>
       <p id="gate-error" class="gate-error" role="alert" hidden></p>
       <button type="submit" class="gate-btn" id="login-btn">Open website</button>
