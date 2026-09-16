@@ -48,13 +48,17 @@ body {
 nav { display: flex; gap: 16px; align-items: center; }
 nav a { color: var(--mute); text-decoration: none; font-size: 14px; }
 nav a:hover { color: var(--ink); }
-.flip {
-  color: var(--brass-ink) !important;
-  background: var(--brass);
+.ig {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #fff !important;
+  background: linear-gradient(135deg, #f58529, #dd2a7b 55%, #8134af);
   padding: 6px 12px;
   border-radius: 999px;
   font-weight: 600;
 }
+.ig:hover { filter: brightness(1.08); color: #fff !important; }
 
 .hero {
   padding: 48px 22px 20px;
