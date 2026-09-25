@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jan656899-design.github.io/aqibs-web/sitemap.xml
