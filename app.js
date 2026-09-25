@@ -1,3 +1,7 @@
+import { setupAuth } from "./auth.js";
+
+setupAuth();
+
 const q = document.getElementById("q");
 const count = document.getElementById("count");
 const empty = document.getElementById("empty");
