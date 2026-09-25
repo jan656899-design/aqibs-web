@@ -1,11 +1,12 @@
 :root {
-  --night: #3b0006;
-  --panel: #4a0810;
-  --line: #7a1824;
+  --night: #2a0610;
+  --panel: rgba(42, 8, 16, 0.78);
+  --line: #7a3040;
   --ivory: #f6ece6;
-  --mute: #e0b8b4;
+  --mute: #d4c0bc;
   --copper: #e8b86d;
   --copper-ink: #2a0a0c;
+  --sky: #4a7ea8;
 }
 
 * { box-sizing: border-box; }
@@ -14,9 +15,7 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(90vw 60vh at 80% -10%, #8b1020 0%, transparent 55%),
-    radial-gradient(60vw 50vh at 0% 110%, #5a0810 0%, transparent 50%),
-    #3b0006;
+    linear-gradient(180deg, #5b8bb5 0%, #6a4a68 28%, #5a1824 58%, #3b0008 100%);
   color: var(--ivory);
   font: 16px/1.55 Sora, system-ui, sans-serif;
 }
@@ -253,8 +252,7 @@ html:not(.unlocked) { overflow: hidden; }
   place-items: center;
   padding: 20px;
   background:
-    radial-gradient(700px 360px at 50% 0%, #8b1020 0%, transparent 60%),
-    #3b0006;
+    linear-gradient(180deg, #5b8bb5 0%, #6a4a68 32%, #3b0008 100%);
 }
 html:not(.unlocked) .gate { display: grid; }
 
