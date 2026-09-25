@@ -9,12 +9,16 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  min-height: 100%;
+  background: linear-gradient(180deg, #4db4f0 0%, #2f9ae0 22%, #1aa06a 58%, #0a6b3a 100%);
+  background-attachment: fixed;
+}
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    linear-gradient(180deg, #6eb6e8 0%, #3d9ad4 28%, #1f8a6a 62%, #0c3d28 100%);
+  background: transparent;
   color: var(--ivory);
   font: 16px/1.55 Sora, system-ui, sans-serif;
 }
@@ -250,8 +254,7 @@ html:not(.unlocked) { overflow: hidden; }
   z-index: 80;
   place-items: center;
   padding: 20px;
-  background:
-    linear-gradient(180deg, #6eb6e8 0%, #3d9ad4 32%, #0c3d28 100%);
+  background: transparent;
 }
 html:not(.unlocked) .gate { display: grid; }
 
