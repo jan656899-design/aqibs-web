@@ -1,11 +1,11 @@
 :root {
-  --night: #0a0908;
-  --panel: #14110e;
-  --line: #2c241c;
-  --ivory: #f3ead8;
-  --mute: #9a8d7a;
-  --copper: #c9864a;
-  --copper-ink: #1a1008;
+  --night: #1a0507;
+  --panel: #2a0b10;
+  --line: #4a1820;
+  --ivory: #f6ece6;
+  --mute: #c4a8a4;
+  --copper: #e8b86d;
+  --copper-ink: #2a0a0c;
 }
 
 * { box-sizing: border-box; }
@@ -14,7 +14,8 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(70vw 50vh at 100% -10%, #2a1a10 0%, transparent 50%),
+    radial-gradient(80vw 55vh at 100% -8%, #5a121c 0%, transparent 52%),
+    radial-gradient(50vw 40vh at 0% 100%, #3a0a10 0%, transparent 48%),
     var(--night);
   color: var(--ivory);
   font: 16px/1.55 Sora, system-ui, sans-serif;
