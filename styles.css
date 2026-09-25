@@ -1,12 +1,11 @@
 :root {
-  --night: #2a0610;
-  --panel: rgba(42, 8, 16, 0.78);
-  --line: #7a3040;
-  --ivory: #f6ece6;
-  --mute: #d4c0bc;
-  --copper: #e8b86d;
-  --copper-ink: #2a0a0c;
-  --sky: #4a7ea8;
+  --night: #0c2a1c;
+  --panel: rgba(8, 36, 40, 0.78);
+  --line: #2a6a68;
+  --ivory: #eef6f2;
+  --mute: #b7d4c8;
+  --copper: #7ee0b0;
+  --copper-ink: #062418;
 }
 
 * { box-sizing: border-box; }
@@ -15,7 +14,7 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    linear-gradient(180deg, #5b8bb5 0%, #6a4a68 28%, #5a1824 58%, #3b0008 100%);
+    linear-gradient(180deg, #6eb6e8 0%, #3d9ad4 28%, #1f8a6a 62%, #0c3d28 100%);
   color: var(--ivory);
   font: 16px/1.55 Sora, system-ui, sans-serif;
 }
@@ -252,7 +251,7 @@ html:not(.unlocked) { overflow: hidden; }
   place-items: center;
   padding: 20px;
   background:
-    linear-gradient(180deg, #5b8bb5 0%, #6a4a68 32%, #3b0008 100%);
+    linear-gradient(180deg, #6eb6e8 0%, #3d9ad4 32%, #0c3d28 100%);
 }
 html:not(.unlocked) .gate { display: grid; }
 
@@ -291,7 +290,7 @@ html:not(.unlocked) .gate { display: grid; }
 .gate-field input {
   width: 100%;
   border: 1px solid var(--line);
-  background: #2a0508;
+  background: #083028;
   color: var(--ivory);
   font: inherit;
   font-size: 16px;
@@ -320,7 +319,7 @@ html:not(.unlocked) .gate { display: grid; }
   display: flex;
   align-items: stretch;
   border: 1px solid var(--line);
-  background: #2a0508;
+  background: #083028;
 }
 .phone-row:focus-within { border-color: var(--copper); }
 .phone-row .cc {
