@@ -27,7 +27,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Sora:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 
   <script type="application/ld+json">
@@ -48,7 +48,13 @@
         "@id": "https://jan656899-design.github.io/aqibs-web/#person",
         "name": "AQIB ALI",
         "jobTitle": "Developer",
-        "url": "https://jan656899-design.github.io/aqibs-web/"
+        "url": "https://jan656899-design.github.io/aqibs-web/",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "SHEIKH WADI PORA",
+          "addressLocality": "SHEIKH WADI PORA",
+          "addressCountry": "IN"
+        }
       }
     ]
   }
@@ -60,7 +66,7 @@
   <header class="bar">
     <a class="wordmark" href="#top">AQIB'S WEB</a>
     <nav>
-      <a href="#desk">Tools</a>
+      <a href="#desk">The desk</a>
       <a class="ig" href="https://www.instagram.com/the_aqiiie_?stkn=dG1zejVua20yeHB4" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm11.25 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>
         Instagram
@@ -70,20 +76,31 @@
 
   <main id="top">
     <section class="hero">
-      <p class="kicker">All-in-one desk</p>
-      <h1>AQIB'S WEB</h1>
-      <p class="lede">Type a name. Launch the official site in a new tab. Built by <strong>AQIB ALI</strong>.</p>
+      <p class="kicker">A private desk of machines</p>
+      <h1>AQIB'S<br>WEB</h1>
+      <p class="lede">Name a tool. Open its official house in a new tab. Built by AQIB ALI.</p>
 
       <label class="search" for="q">
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79L20 21.5 21.5 20zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"/></svg>
         <input id="q" type="search" placeholder="Search ChatGPT, Claude, Midjourney…" autocomplete="off" autofocus>
       </label>
+      <div class="filters" role="tablist" aria-label="Tool kinds">
+        <button type="button" class="chip is-on" data-kind="all">All</button>
+        <button type="button" class="chip" data-kind="chat">Chat</button>
+        <button type="button" class="chip" data-kind="image">Image</button>
+        <button type="button" class="chip" data-kind="code">Code</button>
+        <button type="button" class="chip" data-kind="audio">Sound</button>
+        <button type="button" class="chip" data-kind="video">Film</button>
+        <button type="button" class="chip" data-kind="write">Write</button>
+        <button type="button" class="chip" data-kind="search">Search</button>
+      </div>
       <p id="count" class="count" aria-live="polite"></p>
     </section>
 
     <section id="desk" class="desk">
       <article class="card" data-name="chatgpt openai chat gpt" data-kind="chat">
         <span class="mark" style="--c:#10a37f">G</span>
+        <span class="kind">Chat</span>
         <h2>ChatGPT</h2>
         <p>OpenAI’s general chat for writing, code, and everyday questions.</p>
         <a class="launch" href="https://chatgpt.com" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -91,6 +108,7 @@
 
       <article class="card" data-name="google gemini bard" data-kind="chat">
         <span class="mark" style="--c:#8ab4f8">G</span>
+        <span class="kind">Chat</span>
         <h2>Google Gemini</h2>
         <p>Google’s multimodal model, wired into Search and Workspace.</p>
         <a class="launch" href="https://gemini.google.com" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -98,6 +116,7 @@
 
       <article class="card" data-name="claude anthropic" data-kind="chat">
         <span class="mark" style="--c:#d4a27f">C</span>
+        <span class="kind">Chat</span>
         <h2>Claude</h2>
         <p>Anthropic’s long-context assistant for documents, code, and agents.</p>
         <a class="launch" href="https://claude.ai" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -105,6 +124,7 @@
 
       <article class="card" data-name="perplexity search" data-kind="search">
         <span class="mark" style="--c:#20b8cd">P</span>
+        <span class="kind">Search</span>
         <h2>Perplexity</h2>
         <p>Cited answers. Ask the live web instead of a closed chat.</p>
         <a class="launch" href="https://www.perplexity.ai" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -112,6 +132,7 @@
 
       <article class="card" data-name="grok xai twitter x" data-kind="chat">
         <span class="mark" style="--c:#e8e8e8">X</span>
+        <span class="kind">Chat</span>
         <h2>Grok</h2>
         <p>xAI’s model with a live feed of the public internet.</p>
         <a class="launch" href="https://grok.com" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -119,6 +140,7 @@
 
       <article class="card" data-name="microsoft copilot bing" data-kind="chat">
         <span class="mark" style="--c:#50e6ff">C</span>
+        <span class="kind">Chat</span>
         <h2>Microsoft Copilot</h2>
         <p>Chat plus Office, Edge, and Windows in one Microsoft login.</p>
         <a class="launch" href="https://copilot.microsoft.com" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -126,6 +148,7 @@
 
       <article class="card" data-name="midjourney image art" data-kind="image">
         <span class="mark" style="--c:#c9a227">M</span>
+        <span class="kind">Image</span>
         <h2>Midjourney</h2>
         <p>Still the look people mean when they say “AI art”.</p>
         <a class="launch" href="https://www.midjourney.com" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -133,6 +156,7 @@
 
       <article class="card" data-name="leonardo image" data-kind="image">
         <span class="mark" style="--c:#7c5cff">L</span>
+        <span class="kind">Image</span>
         <h2>Leonardo</h2>
         <p>Image studio with models tuned for game art and products.</p>
         <a class="launch" href="https://leonardo.ai" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -140,6 +164,7 @@
 
       <article class="card" data-name="adobe firefly image" data-kind="image">
         <span class="mark" style="--c:#ff6a2b">F</span>
+        <span class="kind">Image</span>
         <h2>Adobe Firefly</h2>
         <p>Generative fill inside Photoshop, Illustrator, and Express.</p>
         <a class="launch" href="https://firefly.adobe.com" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -147,6 +172,7 @@
 
       <article class="card" data-name="canva magic studio design" data-kind="image">
         <span class="mark" style="--c:#00c4cc">C</span>
+        <span class="kind">Image</span>
         <h2>Canva Magic</h2>
         <p>Layouts, slides, and social posts from a short prompt.</p>
         <a class="launch" href="https://www.canva.com/magic-studio/" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -154,6 +180,7 @@
 
       <article class="card" data-name="runway video" data-kind="video">
         <span class="mark" style="--c:#e11d48">R</span>
+        <span class="kind">Film</span>
         <h2>Runway</h2>
         <p>Text-to-video and cut tools for short films and ads.</p>
         <a class="launch" href="https://runwayml.com" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -161,6 +188,7 @@
 
       <article class="card" data-name="suno music song" data-kind="audio">
         <span class="mark" style="--c:#f59e0b">S</span>
+        <span class="kind">Sound</span>
         <h2>Suno</h2>
         <p>Full songs from a line of lyrics or a mood.</p>
         <a class="launch" href="https://suno.com" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -168,6 +196,7 @@
 
       <article class="card" data-name="elevenlabs voice audio tts" data-kind="audio">
         <span class="mark" style="--c:#f43f5e">11</span>
+        <span class="kind">Sound</span>
         <h2>ElevenLabs</h2>
         <p>Voices that hold a character across a long read.</p>
         <a class="launch" href="https://elevenlabs.io" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -175,6 +204,7 @@
 
       <article class="card" data-name="cursor code ide" data-kind="code">
         <span class="mark" style="--c:#a3e635">Cu</span>
+        <span class="kind">Code</span>
         <h2>Cursor</h2>
         <p>The editor that writes and edits the repo with you.</p>
         <a class="launch" href="https://cursor.com" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -182,6 +212,7 @@
 
       <article class="card" data-name="github copilot code" data-kind="code">
         <span class="mark" style="--c:#c084fc">Gh</span>
+        <span class="kind">Code</span>
         <h2>GitHub Copilot</h2>
         <p>Inline code in VS Code, JetBrains, and github.com.</p>
         <a class="launch" href="https://github.com/features/copilot" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -189,6 +220,7 @@
 
       <article class="card" data-name="deepseek chat code" data-kind="chat">
         <span class="mark" style="--c:#4f8cff">D</span>
+        <span class="kind">Chat</span>
         <h2>DeepSeek</h2>
         <p>Strong reasoning and code chat, free to try in the browser.</p>
         <a class="launch" href="https://chat.deepseek.com" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -196,6 +228,7 @@
 
       <article class="card" data-name="groq fast inference" data-kind="code">
         <span class="mark" style="--c:#f97316">Q</span>
+        <span class="kind">Code</span>
         <h2>Groq</h2>
         <p>Open models at very high tokens-per-second.</p>
         <a class="launch" href="https://groq.com" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -203,6 +236,7 @@
 
       <article class="card" data-name="hugging face models" data-kind="code">
         <span class="mark" style="--c:#ffd21e">Hf</span>
+        <span class="kind">Code</span>
         <h2>Hugging Face</h2>
         <p>The public yard for models, datasets, and Spaces.</p>
         <a class="launch" href="https://huggingface.co" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -210,6 +244,7 @@
 
       <article class="card" data-name="notion ai notes docs" data-kind="write">
         <span class="mark" style="--c:#e8e4dc">N</span>
+        <span class="kind">Write</span>
         <h2>Notion AI</h2>
         <p>Drafts and summaries inside the same pages you already keep.</p>
         <a class="launch" href="https://www.notion.so/product/ai" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -217,6 +252,7 @@
 
       <article class="card" data-name="gamma slides presentation" data-kind="write">
         <span class="mark" style="--c:#8b5cf6">Ga</span>
+        <span class="kind">Write</span>
         <h2>Gamma</h2>
         <p>Decks from an outline — skip the empty slide file.</p>
         <a class="launch" href="https://gamma.app" target="_blank" rel="noopener noreferrer">Launch</a>
@@ -227,8 +263,8 @@
   </main>
 
   <footer>
-    <p><strong>AQIB'S WEB</strong> · All-in-one AI tools directory</p>
-    <p>Developer: AQIB ALI</p>
+    <p class="foot-mark">AQIB'S WEB</p>
+    <p>A desk of AI tools. Made by AQIB ALI.</p>
   </footer>
 
   <script type="module" src="app.js"></script>
